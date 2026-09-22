@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos - Sistema de Gestão</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; border-bottom: 2px solid #0056b3; padding-bottom: 10px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #666; }
+        input[type="text"], input[type="number"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #28a745; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; font-size: 16px; }
+        button:hover { background-color: #218838; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #0056b3; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastro de Produtos</h2>
+        
+        <!-- Formulário de Cadastro -->
+        <div class="form-group">
+            <label for="nome">Nome do Produto:</label>
+            <input type="text" id="nome" placeholder="Ex: Cesto de Pão">
+        </div>
+        <div class="form-group">
+            <label for="preco">Preço (R$):</label>
+            <input type="number" id="preco" step="0.01" placeholder="Ex: 15.50">
+        </div>
+        <div class="form-group">
+            <label for="estoque">Quantidade em Estoque:</label>
+            <input type="number" id="estoque" placeholder="Ex: 50">
+        </div>
+        <button onclick="adicionarProduto()">Cadastrar Produto</button>
+
+        <!-- Lista de Produtos Adicionados -->
+        <h2 style="margin-top: 40px;">Produtos Cadastrados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                </tr>
+            </thead>
+            <tbody id="lista-produtos">
+                <!-- Os produtos vão aparecer aqui -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function adicionarProduto() {
+            // Vai buscar os valores que escreveste nos campos
+            const nome = document.getElementById('nome').value;
+            const preco = document.getElementById('preco').value;
+            const estoque = document.getElementById('estoque').value;
+
+            // Verifica se os campos não estão vazios
+            if(nome === '' || preco === '' || estoque === '') {
+                alert('Por favor, preenche todos os campos!');
+                return;
+            }
+
+            // Cria uma nova linha para a tabela
+            const tabela = document.getElementById('lista-produtos');
+            const novaLinha = tabela.insertRow();
+
+            novaLinha.innerHTML = `
+                <td>${nome}</td>
+                <td>R$ ${preco}</td>
+                <td>${estoque}</td>
+            `;
+
+            // Limpa os campos depois de adicionar
+            document.getElementById('nome').value = '';
+            document.getElementById('preco').value = '';
+            document.getElementById('estoque').value = '';
+        }
+    </script>
+</body>
+</html>

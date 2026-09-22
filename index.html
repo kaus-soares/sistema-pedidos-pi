@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel - Gestão de Comércio</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; text-align: center; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h1 { color: #333; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        a.button { display: inline-block; background-color: #0056b3; color: white; text-decoration: none; padding: 15px; border-radius: 5px; font-size: 16px; font-weight: bold; transition: 0.3s; }
+        a.button:hover { background-color: #004494; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Gestão</h1>
+        <p>Escolhe o módulo que pretendes aceder:</p>
+        
+        <div class="menu-grid">
+            <a href="clientes.html" class="button">👥 Gerir Clientes</a>
+            <a href="produtos.html" class="button">📦 Gerir Produtos</a>
+            <a href="#" class="button" onclick="alert('Módulo de Pedidos em construção!')">🛒 Registo de Pedidos</a>
+            <a href="#" class="button" onclick="alert('Dashboard de Vendas em breve!')">📊 Relatórios de Vendas</a>
+        </div>
+    </div>
+</body>
+</html>
