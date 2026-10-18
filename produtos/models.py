@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Produto(models.Model):
     nome = models.CharField('Nome', max_length=100)
-    preco = models.CharField('Preço', max_digits=20, blank=True)
+    preco = models.DecimalField('Preço', max_digits=20, decimal_places=2)
     estoque = models.IntegerField('Quantidade em Estoque', default=0)
 
     class Meta:
