@@ -1,29 +1,128 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel - Gestão de Comércio</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; text-align: center; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h1 { color: #333; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        a.button { display: inline-block; background-color: #0056b3; color: white; text-decoration: none; padding: 15px; border-radius: 5px; font-size: 16px; font-weight: bold; transition: 0.3s; }
-        a.button:hover { background-color: #004494; }
+        /* Variáveis de cores para manter o contraste alto (Acessibilidade) */
+        :root {
+            --cor-fundo: #f4f4f9;
+            --cor-texto-principal: #2d3748;
+            --cor-texto-secundario: #4a5568;
+            --cor-primaria: #0056b3;
+            --cor-primaria-hover: #004494;
+            --cor-foco: #ff9900;
+            --cor-fundo-card: #ffffff;
+        }
+
+        /* Reset básico */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--cor-fundo); 
+            color: var(--cor-texto-principal);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Centraliza a caixa no meio da tela */
+            padding: 20px;
+            text-align: center; 
+        }
+
+        .container { 
+            width: 100%;
+            max-width: 600px; 
+            background: var(--cor-fundo-card); 
+            padding: 40px 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+        }
+
+        h1 { 
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--cor-texto-principal);
+        }
+
+        p {
+            color: var(--cor-texto-secundario);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Grid adaptável para celular e desktop */
+        .menu-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+            gap: 15px; 
+        }
+
+        a.button { 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--cor-primaria); 
+            color: #ffffff; 
+            text-decoration: none; 
+            padding: 18px; 
+            border-radius: 8px; 
+            font-size: 1.05rem; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+            border: 2px solid transparent;
+        }
+
+        a.button:hover { 
+            background-color: var(--cor-primaria-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 86, 179, 0.2);
+        }
+
+        /* Foco para navegação por teclado (Regra de Acessibilidade) */
+        a.button:focus-visible {
+            outline: none;
+            border-color: var(--cor-foco);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.4);
+            background-color: var(--cor-primaria-hover);
+            transform: translateY(-3px);
+        }
+
+        .emoji {
+            font-style: normal;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- HTML Semântico: main e nav -->
+    <main class="container">
         <h1>Sistema de Gestão</h1>
-        <p>Escolhe o módulo que pretendes aceder:</p>
+        <p>Escolha o módulo que deseja acessar:</p>
         
-        <div class="menu-grid">
-            <a href="/clientes/" class="button">👥 Gerir Clientes</a>
-            <a href="/produtos/" class="button">📦 Gerir Produtos</a>
-            <a href="#" class="button" onclick="alert('Módulo de Pedidos em construção!')">🛒 Registo de Pedidos</a>
-            <a href="#" class="button" onclick="alert('Dashboard de Vendas em breve!')">📊 Relatórios de Vendas</a>
-        </div>
-    </div>
+        <nav aria-label="Menu principal">
+            <div class="menu-grid">
+                <!-- aria-hidden nos emojis para não confundir leitores de tela -->
+                <a href="/clientes/" class="button" aria-label="Gerenciar Clientes">
+                    <span class="emoji" aria-hidden="true">👥</span> Gerenciar Clientes
+                </a>
+                <a href="/produtos/" class="button" aria-label="Gerenciar Produtos">
+                    <span class="emoji" aria-hidden="true">📦</span> Gerenciar Produtos
+                </a>
+                <a href="#" class="button" onclick="alert('Módulo de Pedidos em construção!')" aria-label="Registro de Pedidos (Em construção)">
+                    <span class="emoji" aria-hidden="true">🛒</span> Registro de Pedidos
+                </a>
+                <a href="#" class="button" onclick="alert('Dashboard de Vendas em breve!')" aria-label="Relatórios de Vendas (Em breve)">
+                    <span class="emoji" aria-hidden="true">📊</span> Relatórios de Vendas
+                </a>
+            </div>
+        </nav>
+    </main>
 </body>
 </html>
