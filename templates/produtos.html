@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
@@ -53,34 +54,6 @@
         </table>
     </div>
 
-    <script>
-        function adicionarProduto() {
-            // Vai buscar os valores que escreveste nos campos
-            const nome = document.getElementById('nome').value;
-            const preco = document.getElementById('preco').value;
-            const estoque = document.getElementById('estoque').value;
-
-            // Verifica se os campos não estão vazios
-            if(nome === '' || preco === '' || estoque === '') {
-                alert('Por favor, preenche todos os campos!');
-                return;
-            }
-
-            // Cria uma nova linha para a tabela
-            const tabela = document.getElementById('lista-produtos');
-            const novaLinha = tabela.insertRow();
-
-            novaLinha.innerHTML = `
-                <td>${nome}</td>
-                <td>R$ ${preco}</td>
-                <td>${estoque}</td>
-            `;
-
-            // Limpa os campos depois de adicionar
-            document.getElementById('nome').value = '';
-            document.getElementById('preco').value = '';
-            document.getElementById('estoque').value = '';
-        }
-    </script>
+    <script src="{% static 'js/produtos.js' %}"></script>
 </body>
 </html>

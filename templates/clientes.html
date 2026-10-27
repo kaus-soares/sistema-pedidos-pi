@@ -1,5 +1,6 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,7 +39,7 @@
         </div>
         
         <div>
-            <button class="voltar" onclick="window.location.href='index.html'">Voltar ao Menu</button>
+            <button class="voltar" onclick="window.location.href='/'">Voltar ao Menu</button>
             <button onclick="adicionarCliente()">Gravar Cliente</button>
         </div>
 
@@ -57,25 +58,6 @@
         </table>
     </div>
 
-    <script>
-        function adicionarCliente() {
-            const nome = document.getElementById('nome').value;
-            const telefone = document.getElementById('telefone').value;
-            const endereco = document.getElementById('endereco').value;
-
-            if(nome === '' || telefone === '' || endereco === '') {
-                alert('Por favor, preenche todos os dados do cliente!');
-                return;
-            }
-
-            const tabela = document.getElementById('lista-clientes');
-            const novaLinha = tabela.insertRow();
-            novaLinha.innerHTML = `<td>${nome}</td><td>${telefone}</td><td>${endereco}</td>`;
-
-            document.getElementById('nome').value = '';
-            document.getElementById('telefone').value = '';
-            document.getElementById('endereco').value = '';
-        }
-    </script>
+    <script src="{% static 'js/clientes.js' %}"></script>
 </body>
 </html>
