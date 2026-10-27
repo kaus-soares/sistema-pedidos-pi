@@ -1,59 +1,240 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produtos - Sistema de Gestão</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        h2 { color: #333; border-bottom: 2px solid #0056b3; padding-bottom: 10px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: #666; }
-        input[type="text"], input[type="number"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #28a745; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; font-size: 16px; }
-        button:hover { background-color: #218838; }
-        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
-        th { background-color: #0056b3; color: white; }
+        /* Variáveis de cores mantendo a consistência do sistema */
+        :root {
+            --cor-fundo: #f4f4f9;
+            --cor-texto-principal: #2d3748;
+            --cor-texto-secundario: #4a5568;
+            --cor-primaria: #0056b3;
+            --cor-sucesso: #28a745;
+            --cor-sucesso-hover: #218838;
+            --cor-secundaria: #6c757d;
+            --cor-secundaria-hover: #5a6268;
+            --cor-foco: #ff9900;
+            --cor-fundo-card: #ffffff;
+            --cor-borda: #cbd5e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--cor-fundo); 
+            color: var(--cor-texto-principal);
+            padding: 40px 20px; 
+        }
+
+        .container { 
+            width: 100%;
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: var(--cor-fundo-card); 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+        }
+
+        h2 { 
+            color: var(--cor-texto-principal); 
+            border-bottom: 3px solid var(--cor-primaria); 
+            padding-bottom: 12px; 
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        /* Formulários Acessíveis */
+        .form-group { margin-bottom: 20px; }
+        
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            color: var(--cor-texto-secundario); 
+            font-weight: 600; 
+            font-size: 0.95rem;
+        }
+
+        input[type="text"], input[type="number"] { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid var(--cor-borda); 
+            border-radius: 6px; 
+            font-size: 1rem;
+            color: var(--cor-texto-principal);
+            transition: border-color 0.3s;
+        }
+
+        /* Foco para navegação por teclado */
+        input:focus-visible {
+            outline: none;
+            border-color: var(--cor-foco);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
+        }
+
+        /* Botões Modernos */
+        .botoes-acao {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        button, .btn { 
+            display: inline-block;
+            text-align: center;
+            border: 2px solid transparent; 
+            padding: 12px 24px; 
+            cursor: pointer; 
+            border-radius: 6px; 
+            font-size: 1rem; 
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-salvar { 
+            background-color: var(--cor-sucesso); 
+            color: white; 
+        }
+        
+        .btn-salvar:hover { 
+            background-color: var(--cor-sucesso-hover); 
+            transform: translateY(-2px);
+        }
+
+        .btn-voltar { 
+            background-color: var(--cor-secundaria); 
+            color: white;
+        }
+
+        .btn-voltar:hover { 
+            background-color: var(--cor-secundaria-hover); 
+            transform: translateY(-2px);
+        }
+
+        /* Foco nos botões */
+        button:focus-visible, .btn:focus-visible {
+            outline: none;
+            border-color: var(--cor-foco);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.4);
+        }
+
+        /* Tabela Responsiva */
+        .tabela-container {
+            overflow-x: auto;
+            margin-top: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--cor-borda);
+        }
+
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background-color: white;
+        }
+
+        th, td { 
+            padding: 15px; 
+            text-align: left; 
+            border-bottom: 1px solid var(--cor-borda);
+        }
+
+        th { 
+            background-color: var(--cor-primaria); 
+            color: white; 
+            font-weight: 600;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        
+        tbody tr:hover { background-color: #f8fafc; }
+
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- HTML Semântico e Estruturado -->
+    <main class="container">
         <h2>Cadastro de Produtos</h2>
         
-        <!-- Formulário de Cadastro -->
+        <!-- Formulário com aria-required -->
         <div class="form-group">
             <label for="nome">Nome do Produto:</label>
-            <input type="text" id="nome" placeholder="Ex: Cesto de Pão">
+            <input type="text" id="nome" placeholder="Ex: Cesto de Pão" required aria-required="true">
         </div>
         <div class="form-group">
             <label for="preco">Preço (R$):</label>
-            <input type="number" id="preco" step="0.01" placeholder="Ex: 15.50">
+            <input type="number" id="preco" step="0.01" placeholder="Ex: 15.50" required aria-required="true">
         </div>
         <div class="form-group">
             <label for="estoque">Quantidade em Estoque:</label>
-            <input type="number" id="estoque" placeholder="Ex: 50">
+            <input type="number" id="estoque" placeholder="Ex: 50" required aria-required="true">
         </div>
-        <button onclick="adicionarProduto()">Cadastrar Produto</button>
+        
+        <div class="botoes-acao">
+            <a href="/" class="btn btn-voltar" aria-label="Voltar para a página inicial">Voltar ao Menu</a>
+            <button onclick="adicionarProduto()" class="btn-salvar" aria-label="Cadastrar novo produto no sistema">Cadastrar Produto</button>
+        </div>
 
         <!-- Lista de Produtos Adicionados -->
-        <h2 style="margin-top: 40px;">Produtos Cadastrados</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Preço</th>
-                    <th>Estoque</th>
-                </tr>
-            </thead>
-            <tbody id="lista-produtos">
-                <!-- Os produtos vão aparecer aqui -->
-            </tbody>
-        </table>
-    </div>
+        <h2 style="margin-top: 50px;">Produtos Cadastrados</h2>
+        
+        <div class="tabela-container" tabindex="0" aria-label="Tabela de produtos cadastrados">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Preço</th>
+                        <th scope="col">Estoque</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-produtos">
+                    <!-- Os produtos vão aparecer aqui via Django ou JS -->
+                </tbody>
+            </table>
+        </div>
+    </main>
 
+<<<<<<< HEAD
     <script src="{% static 'js/produtos.js' %}"></script>
+=======
+    <script>
+        function adicionarProduto() {
+            // Pega os valores que você digitou nos campos
+            const nome = document.getElementById('nome').value;
+            const preco = document.getElementById('preco').value;
+            const estoque = document.getElementById('estoque').value;
+
+            // Verifica se os campos não estão vazios
+            if(nome === '' || preco === '' || estoque === '') {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            // Cria uma nova linha para a tabela
+            const tabela = document.getElementById('lista-produtos');
+            const novaLinha = tabela.insertRow();
+
+            novaLinha.innerHTML = `
+                <td>${nome}</td>
+                <td>R$ ${preco}</td>
+                <td>${estoque}</td>
+            `;
+
+            // Limpa os campos depois de adicionar
+            document.getElementById('nome').value = '';
+            document.getElementById('preco').value = '';
+            document.getElementById('estoque').value = '';
+        }
+    </script>
+>>>>>>> fe4f3da8fff50c86ea32c3c8cd399623181f2c65
 </body>
 </html>
