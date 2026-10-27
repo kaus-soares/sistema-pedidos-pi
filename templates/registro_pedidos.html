@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Pedidos - Sistema de Gestão</title>
+
+    <style>
+        :root {
+            --cor-fundo: #f4f4f9;
+            --cor-texto-principal: #2d3748;
+            --cor-texto-secundario: #4a5568;
+            --cor-primaria: #0056b3;
+            --cor-sucesso: #28a745;
+            --cor-sucesso-hover: #218838;
+            --cor-secundaria: #6c757d;
+            --cor-secundaria-hover: #5a6268;
+            --cor-foco: #ff9900;
+            --cor-fundo-card: #ffffff;
+            --cor-borda: #cbd5e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto-principal);
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--cor-fundo-card);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: var(--cor-texto-principal);
+            border-bottom: 3px solid var(--cor-primaria);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--cor-texto-secundario);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--cor-borda);
+            border-radius: 6px;
+            font-size: 1rem;
+            color: var(--cor-texto-principal);
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+
+        input:focus-visible, select:focus-visible {
+            outline: none;
+            border-color: var(--cor-foco);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
+        }
+
+        .botoes-acao {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        button, .btn {
+            display: inline-block;
+            text-align: center;
+            border: 2px solid transparent;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-salvar {
+            background-color: var(--cor-sucesso);
+            color: white;
+        }
+
+        .btn-salvar:hover {
+            background-color: var(--cor-sucesso-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-voltar {
+            background-color: var(--cor-secundaria);
+            color: white;
+        }
+
+        .btn-voltar:hover {
+            background-color: var(--cor-secundaria-hover);
+            transform: translateY(-2px);
+        }
+
+        button:focus-visible, .btn:focus-visible {
+            outline: none;
+            border-color: var(--cor-foco);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .botoes-acao {
+                flex-direction: column;
+            }
+
+            .btn, button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+
+        <h2>Registro de Pedidos</h2>
+
+        <!-- Formulário preparado para integração Django -->
+        <form
+            method="POST"
+            aria-label="Formulário para registrar um novo pedido"
+        >
+            {% csrf_token %}
+
+            <!-- Seleção de Cliente -->
+            <div class="form-group">
+                <label for="cliente">Cliente:</label>
+
+                <select
+                    id="cliente"
+                    name="cliente"
+                    required
+                >
+                    <option value="">
+                        Selecione o cliente...
+                    </option>
+
+                    {% for cliente in clientes %}
+                        <option value="{{ cliente.id }}">
+                            {{ cliente.nome }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <!-- Seleção de Produto -->
+            <div class="form-group">
+                <label for="produto">Produto:</label>
+
+                <select
+                    id="produto"
+                    name="produto"
+                    required
+                >
+                    <option value="">
+                        Selecione o produto...
+                    </option>
+
+                    {% for produto in produtos %}
+                        <option value="{{ produto.id }}">
+                            {{ produto.nome }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <!-- Quantidade do Pedido -->
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+
+                <input
+                    type="number"
+                    id="quantidade"
+                    name="quantidade"
+                    min="1"
+                    step="1"
+                    placeholder="Ex: 2"
+                    required
+                >
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="botoes-acao">
+
+                <a
+                    href="{% url 'lista_pedidos' %}"
+                    class="btn btn-voltar"
+                    aria-label="Cancelar operação e voltar à lista de pedidos"
+                >
+                    Cancelar
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-salvar"
+                    aria-label="Confirmar e registrar o pedido"
+                >
+                    Registrar Pedido
+                </button>
+
+            </div>
+
+        </form>
+    </main>
+</body>
+</html>

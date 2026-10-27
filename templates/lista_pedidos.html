@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos - Sistema de Gestão</title>
+
+    <style>
+        :root {
+            --cor-fundo: #f4f4f9;
+            --cor-texto-principal: #2d3748;
+            --cor-texto-secundario: #4a5568;
+            --cor-primaria: #0056b3;
+            --cor-sucesso: #28a745;
+            --cor-sucesso-hover: #218838;
+            --cor-secundaria: #6c757d;
+            --cor-secundaria-hover: #5a6268;
+            --cor-foco: #ff9900;
+            --cor-fundo-card: #ffffff;
+            --cor-borda: #cbd5e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto-principal);
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--cor-fundo-card);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: var(--cor-texto-principal);
+            border-bottom: 3px solid var(--cor-primaria);
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+
+        .botoes-acao {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        button, .btn {
+            display: inline-block;
+            text-align: center;
+            border: 2px solid transparent;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-salvar {
+            background-color: var(--cor-sucesso);
+            color: white;
+        }
+
+        .btn-salvar:hover {
+            background-color: var(--cor-sucesso-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-voltar {
+            background-color: var(--cor-secundaria);
+            color: white;
+        }
+
+        .btn-voltar:hover {
+            background-color: var(--cor-secundaria-hover);
+            transform: translateY(-2px);
+        }
+
+        button:focus-visible, .btn:focus-visible {
+            outline: none;
+            border-color: var(--cor-foco);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.4);
+        }
+
+        .tabela-container {
+            overflow-x: auto;
+            margin-top: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--cor-borda);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--cor-borda);
+        }
+
+        th {
+            background-color: var(--cor-primaria);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .mensagem-vazia {
+            text-align: center;
+            color: var(--cor-texto-secundario);
+            padding: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            th, td {
+                padding: 12px;
+            }
+
+            .botoes-acao {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+
+        <h2>Lista de Pedidos</h2>
+
+        <div
+            class="tabela-container"
+            tabindex="0"
+            aria-label="Tabela de pedidos registrados"
+        >
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Produto</th>
+                        <th scope="col">Qtd</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody id="lista-pedidos">
+                    <!-- A listagem será integrada ao backend -->
+                    <tr>
+                        <td colspan="6" class="mensagem-vazia">
+                            Nenhum pedido para exibir.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="botoes-acao">
+
+            <a
+                href="/"
+                class="btn btn-voltar"
+                aria-label="Voltar para a página inicial"
+            >
+                Voltar ao Menu
+            </a>
+
+            <a
+                href="{% url 'registro_pedido' %}"
+                class="btn btn-salvar"
+                aria-label="Acessar formulário para registrar novo pedido"
+            >
+                Registrar Novo Pedido
+            </a>
+
+        </div>
+
+    </main>
+</body>
+</html>
