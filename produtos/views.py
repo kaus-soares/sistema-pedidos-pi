@@ -12,7 +12,6 @@ def listar_produtos(request):
             'nome': p.nome,
             'preco': str(p.preco),
             'estoque': p.estoque,
-            'ativo': p.ativo
         } for p in produtos]
         return JsonResponse(data, safe=False)
 

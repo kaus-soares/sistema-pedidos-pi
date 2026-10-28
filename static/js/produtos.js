@@ -25,7 +25,7 @@ async function listarProdutos() {
 }
 
 // Função para cadastrar o produto no banco
-async function adicionarproduto() {
+async function adicionarProduto() {
     const nome = document.getElementById('nome').value;
     const preco = document.getElementById('preco').value;
     const estoque = document.getElementById('estoque').value;
@@ -67,4 +67,4 @@ async function adicionarproduto() {
 }
 
 // Quando a página carregar, já busca a lista
-document.addEventListener('DOMContentLoaded', listarprodutos);
+document.addEventListener('DOMContentLoaded', listarProdutos);

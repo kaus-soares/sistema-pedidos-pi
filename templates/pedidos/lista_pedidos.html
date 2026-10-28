@@ -184,12 +184,33 @@
                 </thead>
 
                 <tbody id="lista-pedidos">
-                    <!-- A listagem será integrada ao backend -->
+                    {% for pedido in pedidos %}
+                    <tr>
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.cliente.nome }}</td>
+                        <td>
+                            {% for item in pedido.itens.all %}
+                                {{ item.produto.nome }}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for item in pedido.itens.all %}
+                                {{ item.quantidade }}
+                            {% endfor %}
+                        </td>
+                        <td>{{ pedido.criado_em|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <!-- Botões de ação futuros (ex: mudar status) -->
+                            <span class="badge">Registrado</span>
+                        </td>
+                    </tr>
+                    {% empty %}
                     <tr>
                         <td colspan="6" class="mensagem-vazia">
                             Nenhum pedido para exibir.
                         </td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

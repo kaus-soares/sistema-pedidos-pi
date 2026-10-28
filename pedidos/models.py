@@ -4,8 +4,9 @@ from clientes.models import Cliente
 from produtos.models import Produto
 # Create your models here.
 class Pedido(models.Model):
-
-    criado_em = models.DateTimeField('Criado em', auto_now_add=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, null=True, blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    criado_em = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Pedido'
@@ -13,7 +14,7 @@ class Pedido(models.Model):
         ordering = ['-criado_em']
     
     def __str__(self):
-        return self.nome
+        return f"Pedido #{self.id} - {self.cliente.nome}"
 
 
 class ItemPedido(models.Model):
@@ -21,6 +22,7 @@ class ItemPedido(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.PROTECT, verbose_name='Produto')
     quantidade = models.IntegerField('Quantidade', default=1)
     preco_unitario = models.DecimalField('Preço Unitário', max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
     class Meta:
         verbose_name = 'Item do Pedido'
